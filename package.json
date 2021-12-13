@@ -1,5 +1,6 @@
 {
-  "name": "canvaspdf",
+  "name": "voyages-map-builder",
+  "homepage": "http://otiscurtisdotcom.github.io/voyages-map-builder",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
