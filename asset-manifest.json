@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/voyages-map-builder/static/css/main.5f82e420.chunk.css",
-    "main.js": "/voyages-map-builder/static/js/main.60b4e55a.chunk.js",
-    "main.js.map": "/voyages-map-builder/static/js/main.60b4e55a.chunk.js.map",
-    "runtime-main.js": "/voyages-map-builder/static/js/runtime-main.b7ee67b2.js",
-    "runtime-main.js.map": "/voyages-map-builder/static/js/runtime-main.b7ee67b2.js.map",
-    "static/js/2.45542ea4.chunk.js": "/voyages-map-builder/static/js/2.45542ea4.chunk.js",
-    "static/js/2.45542ea4.chunk.js.map": "/voyages-map-builder/static/js/2.45542ea4.chunk.js.map",
-    "static/js/3.5e50452e.chunk.js": "/voyages-map-builder/static/js/3.5e50452e.chunk.js",
-    "static/js/3.5e50452e.chunk.js.map": "/voyages-map-builder/static/js/3.5e50452e.chunk.js.map",
+    "main.js": "/voyages-map-builder/static/js/main.a49e9a47.chunk.js",
+    "main.js.map": "/voyages-map-builder/static/js/main.a49e9a47.chunk.js.map",
+    "runtime-main.js": "/voyages-map-builder/static/js/runtime-main.9d308d37.js",
+    "runtime-main.js.map": "/voyages-map-builder/static/js/runtime-main.9d308d37.js.map",
+    "static/js/2.42be915b.chunk.js": "/voyages-map-builder/static/js/2.42be915b.chunk.js",
+    "static/js/2.42be915b.chunk.js.map": "/voyages-map-builder/static/js/2.42be915b.chunk.js.map",
+    "static/js/3.07f8a874.chunk.js": "/voyages-map-builder/static/js/3.07f8a874.chunk.js",
+    "static/js/3.07f8a874.chunk.js.map": "/voyages-map-builder/static/js/3.07f8a874.chunk.js.map",
     "static/js/4.08845cf3.chunk.js": "/voyages-map-builder/static/js/4.08845cf3.chunk.js",
     "static/js/4.08845cf3.chunk.js.map": "/voyages-map-builder/static/js/4.08845cf3.chunk.js.map",
     "static/js/5.0eb079ae.chunk.js": "/voyages-map-builder/static/js/5.0eb079ae.chunk.js",
@@ -17,15 +17,15 @@
     "static/js/6.624bee30.chunk.js.map": "/voyages-map-builder/static/js/6.624bee30.chunk.js.map",
     "index.html": "/voyages-map-builder/index.html",
     "static/css/main.5f82e420.chunk.css.map": "/voyages-map-builder/static/css/main.5f82e420.chunk.css.map",
-    "static/js/2.45542ea4.chunk.js.LICENSE.txt": "/voyages-map-builder/static/js/2.45542ea4.chunk.js.LICENSE.txt",
-    "static/js/3.5e50452e.chunk.js.LICENSE.txt": "/voyages-map-builder/static/js/3.5e50452e.chunk.js.LICENSE.txt",
+    "static/js/2.42be915b.chunk.js.LICENSE.txt": "/voyages-map-builder/static/js/2.42be915b.chunk.js.LICENSE.txt",
+    "static/js/3.07f8a874.chunk.js.LICENSE.txt": "/voyages-map-builder/static/js/3.07f8a874.chunk.js.LICENSE.txt",
     "static/js/4.08845cf3.chunk.js.LICENSE.txt": "/voyages-map-builder/static/js/4.08845cf3.chunk.js.LICENSE.txt",
     "static/js/5.0eb079ae.chunk.js.LICENSE.txt": "/voyages-map-builder/static/js/5.0eb079ae.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b7ee67b2.js",
-    "static/js/3.5e50452e.chunk.js",
+    "static/js/runtime-main.9d308d37.js",
+    "static/js/3.07f8a874.chunk.js",
     "static/css/main.5f82e420.chunk.css",
-    "static/js/main.60b4e55a.chunk.js"
+    "static/js/main.a49e9a47.chunk.js"
   ]
 }
