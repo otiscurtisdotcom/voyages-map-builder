@@ -12,6 +12,8 @@ const getBlankGrid = (): Hexagon[][] => {
     for (let col=0; col<totalColumns; col++) {
       const hex: Hexagon = {
         show: true,
+        row: rowIndex,
+        col,
       }
       row.push(hex);
     }
@@ -31,6 +33,8 @@ const getBlankGrid = (): Hexagon[][] => {
 export const useContext = (canvasRef: RefObject<HTMLCanvasElement>) => {
   const [hexagonData, setHexagonData] = useState<Hexagon[][]>();
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
+  const [sevenSeas, setSevenSeas] = useState<Hexagon[][]>();
+  const [islands, setIslands] = useState<Hexagon[][]>();
 
   useEffect(() => {
     if (canvasRef.current && canvasRef.current.getContext('2d')) {
@@ -41,34 +45,53 @@ export const useContext = (canvasRef: RefObject<HTMLCanvasElement>) => {
 
   useEffect(() => {
     if (hexagonData) {
-      addSevenSeas();
-      addStart();
-      addDread();
-      addIslands();
-      addRandomStuff();
-      drawGrid();
+      setSevenSeas(getSevenSeas(hexagonData));
     }
   }, [hexagonData]);
 
-  const addSevenSeas = () => {
-    const flatSeas = getSevenSeas(hexagonData!).flat();
-    for (const seaHex of flatSeas) {
-      seaHex.sevenSeas = true;
+  useEffect(() => {
+    if (sevenSeas && hexagonData) {
+      // Set seven seas
+      const flatSeas = sevenSeas.flat();
+      for (const seaHex of flatSeas) {
+        seaHex.sevenSeas = true;
+      };
+      setIslands(getIslands(hexagonData, sevenSeas));
     }
-  }
+  }, [sevenSeas]);
+
+  useEffect(() => {
+    if (islands) {
+      const flatIslands = islands.flat();
+      for (const islandHex of flatIslands) {
+        islandHex.island = true;
+      }
+
+      addStart();
+      addDread();
+
+      addRandomStuff();
+      drawGrid();
+    }
+  }, [islands])
 
   const addStart = () => {
-    const newHexData = hexagonData;
-    newHexData![10][0].start = true;
+    let possIslands = islands;
+    possIslands?.splice(2, 1);
+    const randomHex = Math.floor(Math.random() * 3);
+    if (possIslands) {
+      possIslands[randomHex][0].start = true;
+    };
   }
 
   const addDread = () => {
-    const newHexData = hexagonData;
-    newHexData![10][4].dread = true;
-  }
-
-  const addIslands = () => {
-    getIslands(hexagonData!);
+    let possIslands = islands;
+    possIslands?.splice(5, 8);
+    possIslands = possIslands?.filter((island) => !island[0].start);
+    const randomHex = Math.floor(Math.random() * 3);
+    if (possIslands) {
+      possIslands[randomHex][0].dread = true;
+    };
   }
 
   const addRandomStuff = () => {
@@ -113,20 +136,20 @@ export const useContext = (canvasRef: RefObject<HTMLCanvasElement>) => {
           ctx.lineWidth = 1;
           ctx.fillStyle = "#33ddee";
     
-          if (hexagon.start) {
-            ctx.fillStyle = "#eedd99";
-          }
-
           if (hexagon.sevenSeas) {
             ctx.fillStyle = "#99eeff";
+          }
+          
+          if (hexagon.island) {
+            ctx.fillStyle = "#ddcc33";
           }
           
           if (hexagon.dread) {
             ctx.fillStyle = "#ff0000";
           }
 
-          if (hexagon.island) {
-            ctx.fillStyle = "#ddcc33";
+          if (hexagon.start) {
+            ctx.fillStyle = "#eedd99";
           }
 
           if (hexagon.show) {

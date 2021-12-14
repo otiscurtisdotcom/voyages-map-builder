@@ -14,4 +14,6 @@ export interface Hexagon {
   dread?: boolean,
   island?: boolean,
   hexItems?: HexItems,
+  row: number,
+  col: number,
 }
