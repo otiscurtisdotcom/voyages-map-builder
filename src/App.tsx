@@ -1,12 +1,14 @@
 import { jsPDF } from "jspdf";
 import { useEffect, useRef } from "react";
-import { useContext } from "./getContext";
+import { useContext } from "./useContext";
+
+const width = 1600;
 
 const App = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvas = canvasRef.current;
   let ctx;
-  ctx = useContext(canvasRef)!;
+  ctx = useContext(canvasRef, width)!;
   
   useEffect(() => {
     if (canvas) {
@@ -30,7 +32,7 @@ const App = () => {
 
   return (
     <div className="content">
-      <canvas ref={canvasRef} width={800} height={600} />
+      <canvas ref={canvasRef} width={width} height={width * 0.66} />
       <button onClick={pdf}>Save as PDF</button>
     </div>
   );

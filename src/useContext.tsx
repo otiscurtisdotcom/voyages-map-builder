@@ -30,11 +30,18 @@ const getBlankGrid = (): Hexagon[][] => {
   return rows;
 }
 
-export const useContext = (canvasRef: RefObject<HTMLCanvasElement>) => {
+export const useContext = (
+  canvasRef: RefObject<HTMLCanvasElement>,
+  width: number
+) => {
+  const hexSize = width / 29;
   const [hexagonData, setHexagonData] = useState<Hexagon[][]>();
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
   const [sevenSeas, setSevenSeas] = useState<Hexagon[][]>();
   const [islands, setIslands] = useState<Hexagon[][]>();
+
+  const tileImage = new Image();
+  const sevenSeastileImage = new Image();
 
   useEffect(() => {
     if (canvasRef.current && canvasRef.current.getContext('2d')) {
@@ -66,14 +73,20 @@ export const useContext = (canvasRef: RefObject<HTMLCanvasElement>) => {
       for (const islandHex of flatIslands) {
         islandHex.island = true;
       }
-
       addStart();
       addDread();
-
       addRandomStuff();
+      
+      tileImage.src = `${process.env.PUBLIC_URL}/img/tile.png`;
+      sevenSeastileImage.src = `${process.env.PUBLIC_URL}/img/seven-seas-tile.png`;
+    }
+  }, [islands]);
+
+  tileImage.onload = () => {
+    sevenSeastileImage.onload = () => {
       drawGrid();
     }
-  }, [islands])
+  };
 
   const addStart = () => {
     let possIslands = islands;
@@ -98,7 +111,7 @@ export const useContext = (canvasRef: RefObject<HTMLCanvasElement>) => {
     const numberOfItems = 3;
     const flatGrid = hexagonData!.flat();
 
-    for (const item of [HexItems.BARREL, HexItems.FRUIT, HexItems.GEM, HexItems.HIDE, HexItems.SAILOR, HexItems.SPICE]) {  
+    for (const item of [HexItems.BARREL, HexItems.FRUIT, HexItems.GEM, HexItems.HIDE, HexItems.RELIC, HexItems.SAILOR, HexItems.SPICE]) {  
       for (let i=0; i<numberOfItems;) {
         const randomHex = flatGrid[Math.floor(Math.random() * flatGrid.length)];
         if (randomHex.show && !randomHex.hexItems && !randomHex.dread && !randomHex.island && !randomHex.start) {
@@ -118,26 +131,36 @@ export const useContext = (canvasRef: RefObject<HTMLCanvasElement>) => {
         for (let col=0; col<totalColumns; col++) {
           const hexagon = row[col];
           const numberOfSides = 6,
-          size = 25,
-          Xcenter = isEvenRow ?
-                    col * (size * 3) + size :
-                    col * (size * 3) + (size * 2.5),
-          
-          Ycenter = rowIndex * (size * 0.86) + size;
+                size = hexSize,
+                Xcenter = isEvenRow ?
+                          col * (size * 3) + size :
+                          col * (size * 3) + (size * 2.5),
+                
+                Ycenter = rowIndex * (size * 0.86) + size;
     
+          ctx.save();
+          
           ctx.beginPath();
           ctx.moveTo (Xcenter + size * Math.cos(0), Ycenter +  size *  Math.sin(0));          
-    
           for (let i = 1; i <= numberOfSides; i++) {
             ctx.lineTo (Xcenter + size * Math.cos(i * 2 * Math.PI / numberOfSides), Ycenter + size * Math.sin(i * 2 * Math.PI / numberOfSides));
           }
+          ctx.closePath();
     
           ctx.strokeStyle = "#000000";
           ctx.lineWidth = 1;
           ctx.fillStyle = "#33ddee";
-    
-          if (hexagon.sevenSeas) {
-            ctx.fillStyle = "#99eeff";
+          ctx.strokeStyle = "#1188AA";
+          ctx.lineWidth = 1;
+  
+          const wavesPattern = ctx.createPattern(tileImage, "repeat");
+          if (wavesPattern) {
+            ctx.fillStyle = wavesPattern;
+          }
+          
+          const sevenSeasPattern = ctx.createPattern(sevenSeastileImage, "repeat");
+          if (hexagon.sevenSeas && sevenSeasPattern) {
+            ctx.fillStyle = sevenSeasPattern;
           }
           
           if (hexagon.island) {
@@ -159,14 +182,14 @@ export const useContext = (canvasRef: RefObject<HTMLCanvasElement>) => {
     
           if (hexagon.hexItems) {
             const image = new Image();
-            image.src = `${process.env.PUBLIC_URL}/${hexagon.hexItems}.png`;
+            image.src = `${process.env.PUBLIC_URL}/img/${hexagon.hexItems}.png`;
             image.onload = () => {
               // @ts-ignore: Unreachable code error
-              ctx.drawImage(image, Xcenter - 10, Ycenter - 14, 18, 26);
+              ctx.drawImage(image, Xcenter - hexSize, Ycenter - hexSize, hexSize * 2, hexSize * 2);
             }
           }
     
-          ctx.restore();
+          // ctx.restore();
         };
       }
     }

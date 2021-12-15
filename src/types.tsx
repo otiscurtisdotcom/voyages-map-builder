@@ -1,10 +1,11 @@
 export enum HexItems {
   BARREL = 'barrel',
   FRUIT = 'fruit',
-  SPICE = 'spice',
-  HIDE = 'hide',
   GEM = 'gem',
+  HIDE = 'hide',
   SAILOR = 'sailor',
+  RELIC = 'relic',
+  SPICE = 'spice',
 }
 
 export interface Hexagon {
